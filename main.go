@@ -19,7 +19,8 @@ func main() {
 
 	web.Config().Render.Template.Directory = "./app/views"
 
-	web.Get("/hi", hi)
+	web.Get("/", hi)
+	web.Static("/assets", "./app/assets", 1)
 
 	//Get port from environment variables, default port number is 7000
 	port := os.Getenv("PORT")
@@ -33,5 +34,5 @@ func main() {
 }
 
 func hi(ctx *iris.Context) {
-	ctx.Render("index.html", map[string]interface{}{"Name": "iris"})
+	ctx.Render("index.html", nil)
 }
