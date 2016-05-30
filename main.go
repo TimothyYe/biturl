@@ -34,5 +34,8 @@ func main() {
 }
 
 func hi(ctx *iris.Context) {
-	ctx.Render("index.html", nil)
+	if err := ctx.Render("index.html", nil); err != nil {
+		fmt.Println(err.Error())
+		panic(err)
+	}
 }
