@@ -92,33 +92,13 @@
 
     <!-- Custom Theme JavaScript -->
     <script>
-        // Closes the sidebar menu
-        $("#menu-close").click(function(e) {
-            e.preventDefault();
-            $("#sidebar-wrapper").toggleClass("active");
-        });
-
-        // Opens the sidebar menu
-        $("#menu-toggle").click(function(e) {
-            e.preventDefault();
-            $("#sidebar-wrapper").toggleClass("active");
-        });
-
-        // Scrolls to the selected menu item on the page
-        $(function() {
-            $('a[href*=#]:not([href=#])').click(function() {
-                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-
-                    var target = $(this.hash);
-                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                    if (target.length) {
-                        $('html,body').animate({
-                            scrollTop: target.offset().top
-                        }, 1000);
-                        return false;
-                    }
-                }
-            });
+        $(document).ready(function() {
+            var random_img_bg = Math.floor(Math.random() * 5 + 1);
+            //声明一个值为url地址的变量，以便我们动态的向css中写入
+            var imgbg = 'url(assets/img/bg' + random_img_bg + '.jpg)';
+            //访问css属性，以便动态的修改背景图片的属性值
+            console.log(imgbg);
+            $(".header").css("background", imgbg);
         });
     </script>
 
