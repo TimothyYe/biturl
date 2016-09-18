@@ -9,25 +9,26 @@ import (
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/iris-contrib/middleware/logger"
 	"github.com/iris-contrib/middleware/recovery"
+	"github.com/kataras/go-template/html"
 	"github.com/kataras/iris"
 )
 
 func main() {
 	web := iris.New()
 
-	web.Use(logger.New(iris.Logger))
-	web.Use(recovery.New(os.Stderr))
+	web.Use(logger.New())
+	web.Use(recovery.Handler)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "DELETE", "PUT", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type", "X-ENDPOINT", "X-SERVICE", "ACCEPT", "ORIGIN", "Authorization", "X-CSRF-TOKEN", "Cookie"},
+		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
+		AllowedHeaders:   []string{"Content-Type", "ACCEPT", "ORIGIN"},
 		AllowCredentials: true,
 		Debug:            true,
 	})
 
 	web.Use(c)
-	web.Config.Render.Template.Directory = "./app/views"
+	web.UseTemplate(html.New()).Directory("./app/views", ".html")
 
 	web.Get("/", indexHandler)
 	web.Static("/assets", "./app/assets", 1)
