@@ -13,8 +13,18 @@ var Shrink = function() {
               //shrink_url();
             } else {
               console.log("copy mode");
-              shrinkMode = true;
-              $('#submit-btn').text("Shrink URL");
+              var clipboard = new Clipboard('.btn');
+
+              clipboard.on('success', function(e) {
+                console.log('Copied!');
+                clipboard.destroy();
+                shrinkMode = true;
+                $('#submit-btn').text("Shrink URL");
+              });
+
+              clipboard.on('error', function(e) {
+                console.log('Copy failed!');
+              });
             }
         });
     }

@@ -41,9 +41,9 @@
 
             <div class="col-md-4 col-md-offset-4">
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" id="txtUrl" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button id="submit-btn" class="btn btn-success" type="button">Shrink URL</button>
+                      <button id="submit-btn" data-clipboard-target="#txtUrl" class="btn btn-success" type="button">Shrink URL</button>
                     </span>
                 </div>
                 <!-- /input-group -->
@@ -73,6 +73,9 @@
 
     <!-- Shrink Url script-->
     <script src="assets/js/shrink.js"></script>
+
+    <!-- Clipboard.js script-->
+    <script src="assets/js/clipboard.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script>
