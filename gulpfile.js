@@ -28,7 +28,7 @@ gulp.task('sass:watch', function () {
 });
 
 // Minify CSS
-gulp.task('minify-css', function() {
+gulp.task('minify-css', ['sass'], function() {
     return gulp.src('./app/assets/css/style.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(rename({ suffix: '.min' }))
