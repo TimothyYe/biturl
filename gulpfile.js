@@ -38,4 +38,16 @@ gulp.task('minify-css', ['sass'], function() {
         }))
 });
 
-gulp.task('build', ['sass','minify-css']);
+// Minify JS
+gulp.task('minify-js', function() {
+    return gulp.src('./frontend/js/shrink.js')
+        .pipe(uglify())
+        .pipe(header(banner, { pkg: pkg }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest('./app/assets/js'))
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+});
+
+gulp.task('build', ['sass','minify-css','minify-js']);
