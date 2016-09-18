@@ -1,6 +1,7 @@
 // Assigning modules to local variables
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var clean   = require('gulp-clean');
 var browserSync = require('browser-sync').create();
 var header = require('gulp-header');
 var cleanCSS = require('gulp-clean-css');
@@ -18,7 +19,7 @@ var banner = ['/*!\n',
 ].join('');
 
 gulp.task('sass', function () {
-  return gulp.src('./frontend/sass/*.scss')
+  return gulp.src('./frontend/sass/*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./app/assets/css'));
 });
@@ -28,9 +29,10 @@ gulp.task('sass:watch', function () {
 });
 
 // Minify CSS
-gulp.task('minify-css', ['sass'], function() {
+gulp.task('minify-css', ['clean','sass'], function() {
     return gulp.src('./app/assets/css/style.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
+        .pipe(header(banner, { pkg: pkg }))
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest('./app/assets/css'))
         .pipe(browserSync.reload({
@@ -39,7 +41,7 @@ gulp.task('minify-css', ['sass'], function() {
 });
 
 // Minify JS
-gulp.task('minify-js', function() {
+gulp.task('minify-js', ['clean'], function() {
     return gulp.src('./frontend/js/shrink.js')
         .pipe(uglify())
         .pipe(header(banner, { pkg: pkg }))
@@ -50,4 +52,14 @@ gulp.task('minify-js', function() {
         }))
 });
 
-gulp.task('build', ['sass','minify-css','minify-js']);
+gulp.task('clean', function(){
+    return gulp.src([ './app/assets/css/style.min.css', './app/assets/js/shrink.min.js' ], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('clean-unused-file', ['minify-css'], function(){
+    return gulp.src(['./app/assets/css/style.css'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('build', ['clean','sass','minify-css','minify-js','clean-unused-file']);
