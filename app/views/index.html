@@ -43,7 +43,7 @@
                 <div class="input-group input-group-lg">
                     <input type="text" class="form-control" placeholder="Search for...">
                     <span class="input-group-btn">
-                      <button class="btn btn-success" type="button">Shrink URL</button>
+                      <button id="submit-btn" class="btn btn-success" type="button">Shrink URL</button>
                     </span>
                 </div>
                 <!-- /input-group -->
@@ -56,29 +56,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>Start Bootstrap</strong>
+                    <h4><strong>BitURL</strong>
                     </h4>
-                    <p>3481 Melrose Place
-                        <br>Beverly Hills, CA 90210</p>
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a>
-                        </li>
-                    </ul>
-                    <br>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
-                        </li>
-                    </ul>
                     <hr class="small">
-                    <p class="text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="text-muted">Copyright &copy; BitURL.top 2016</p>
                 </div>
             </div>
         </div>
@@ -90,6 +71,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="assets/js/bootstrap.min.js"></script>
 
+    <!-- Shrink Url script-->
+    <script src="assets/js/shrink.js"></script>
+
     <!-- Custom Theme JavaScript -->
     <script>
         $(document).ready(function() {
@@ -97,6 +81,7 @@
             var imgbg = 'url(assets/img/bg' + random_img_bg + '.jpg)';
             //Set background image
             $(".header").css("background", imgbg);
+            Shrink.init();
         });
     </script>
 
