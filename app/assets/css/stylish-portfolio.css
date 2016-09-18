@@ -29,6 +29,11 @@ body {
     font-weight: 700;
 }
 
+.text-vertical-center h3 {
+    margin: 0;
+    padding: 0;
+}
+
 /* Custom Button Styles */
 
 .btn-dark {
