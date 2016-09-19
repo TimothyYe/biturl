@@ -45,10 +45,10 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 	if string(url) == "" {
 		resp.Result = false
 		resp.Message = "Please input URL first..."
+
+		ctx.JSON(iris.StatusOK, resp)
+		return
 	}
 
-	if err := ctx.JSON(iris.StatusOK, resp); err != nil {
-		fmt.Println(err.Error())
-		panic(err)
-	}
+	fmt.Println("Input URL is:" + string(url))
 }
