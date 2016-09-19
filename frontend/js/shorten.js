@@ -1,15 +1,26 @@
-var Shrink = function() {
-    var shrinkMode = true;
+var Shorten = function() {
+    var shortenMode = true;
+
+    var validateUrl = function() {
+        var reg = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        $('#txtUrl').on('input', function() {
+            if (reg.test($(this).val())) {
+                $('#submit-btn').prop('disabled', false);
+            } else {
+                $('#submit-btn').prop('disabled', true);
+            }
+        });
+    };
 
     var handleShrink = function() {
         $('#submit-btn').on('click', function(e) {
             e.preventDefault();
             console.log("clicked!")
 
-            if(shrinkMode) {
+            if(shortenMode) {
               console.log("shrink mode");
-              shrinkMode = false;
-              $('#submit-btn').text("Copy");
+              shortenMode = false;
+              $('#submit-btn').text("COPY");
               //shrink_url();
             } else {
               console.log("copy mode");
@@ -18,8 +29,8 @@ var Shrink = function() {
               clipboard.on('success', function(e) {
                 console.log('Copied!');
                 clipboard.destroy();
-                shrinkMode = true;
-                $('#submit-btn').text("Shrink URL");
+                shortenMode = true;
+                $('#submit-btn').text("SHORTEN");
               });
 
               clipboard.on('error', function(e) {
@@ -44,6 +55,7 @@ var Shrink = function() {
     return {
         //main function to initiate the module
         init: function() {
+            validateUrl();
             handleShrink();
         }
     };

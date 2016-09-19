@@ -42,7 +42,7 @@ gulp.task('minify-css', ['clean','sass'], function() {
 
 // Minify JS
 gulp.task('minify-js', ['clean'], function() {
-    return gulp.src('./frontend/js/shrink.js')
+    return gulp.src('./frontend/js/shorten.js')
         .pipe(uglify())
         .pipe(header(banner, { pkg: pkg }))
         .pipe(rename({ suffix: '.min' }))
@@ -53,7 +53,7 @@ gulp.task('minify-js', ['clean'], function() {
 });
 
 gulp.task('clean', function(){
-    return gulp.src([ './app/assets/css/style.min.css', './app/assets/js/shrink.min.js' ], {read: false})
+    return gulp.src([ './app/assets/css/style.min.css', './app/assets/js/shorten.min.js' ], {read: false})
         .pipe(clean());
 });
 
