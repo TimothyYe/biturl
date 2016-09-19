@@ -6,7 +6,7 @@
   "author": "Timothy",
   "license": {
     "type": "MIT",
-    "url": ""
+    "url": "https://github.com/TimothyYe/biturl/blob/master/LICENSE"
   },
   "devDependencies": {
     "browser-sync": "^2.16.0",
