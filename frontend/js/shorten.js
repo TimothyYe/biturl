@@ -41,13 +41,17 @@ var Shorten = function() {
     }
 
     var shrink_url = function() {
-        var form = $('#query-form');
+        var form = $('#shorten-form');
         var url = form.attr("action");
         $.post(url, form.serialize(), function(data) {
-            if (data.Code != '00') {
-                bootbox.alert('');
+            if (data.Result) {
+              //Shorten success
+                $('#txtUrl').prop('value', data.Short);
+                return true;
             } else {
-                bootbox.alert('');
+              //Shorten failed
+                console.log('Shorten failed!');
+              return false;
             }
         }, "json");
     }

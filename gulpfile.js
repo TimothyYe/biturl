@@ -1,7 +1,7 @@
 // Assigning modules to local variables
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-var clean   = require('gulp-clean');
+var clean = require('gulp-clean');
 var browserSync = require('browser-sync').create();
 var header = require('gulp-header');
 var cleanCSS = require('gulp-clean-css');
@@ -25,7 +25,7 @@ gulp.task('sass', function () {
 });
 
 // Minify CSS
-gulp.task('minify-css', ['clean','sass'], function() {
+gulp.task('minify-css', ['clean-css','clean-min-css','sass'], function() {
     return gulp.src('./app/assets/css/style.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(header(banner, { pkg: pkg }))
@@ -37,7 +37,7 @@ gulp.task('minify-css', ['clean','sass'], function() {
 });
 
 // Minify JS
-gulp.task('minify-js', ['clean','clean-js'], function() {
+gulp.task('minify-js', ['clean-js'], function() {
     return gulp.src('./frontend/js/shorten.js')
         .pipe(uglify())
         .pipe(header(banner, { pkg: pkg }))
@@ -46,11 +46,6 @@ gulp.task('minify-js', ['clean','clean-js'], function() {
         .pipe(browserSync.reload({
             stream: true
         }))
-});
-
-gulp.task('clean', function(){
-    return gulp.src([ './app/assets/css/style.min.css', './app/assets/js/shorten.min.js' ], {read: false})
-        .pipe(clean());
 });
 
 gulp.task('clean-js', function(){
@@ -68,10 +63,10 @@ gulp.task('clean-min-css', function(){
         .pipe(clean());
 });
 
-gulp.task('build', ['clean','sass','minify-css','minify-js','clean-css']);
+gulp.task('build', ['sass','minify-css','minify-js','clean-css']);
 
 // Watch Task that compiles SASS and watches JS changes
-gulp.task('dev', ['clean','sass','minify-css','minify-js','clean-css'], function() {
+gulp.task('dev', ['sass','minify-css','minify-js','clean-css'], function() {
     gulp.watch('./frontend/sass/*.sass', ['clean-min-css','sass','minify-css','clean-css']);
     gulp.watch('./frontend/js/*.js', ['clean-js','minify-js']);
 });
