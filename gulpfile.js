@@ -24,10 +24,6 @@ gulp.task('sass', function () {
     .pipe(gulp.dest('./app/assets/css'));
 });
 
-gulp.task('sass:watch', function () {
-  gulp.watch('./frontend/sass/*.scss', ['sass']);
-});
-
 // Minify CSS
 gulp.task('minify-css', ['clean','sass'], function() {
     return gulp.src('./app/assets/css/style.css')
@@ -63,3 +59,9 @@ gulp.task('clean-unused-file', ['minify-css'], function(){
 });
 
 gulp.task('build', ['clean','sass','minify-css','minify-js','clean-unused-file']);
+
+// Watch Task that compiles SASS and watches JS changes
+gulp.task('dev', ['clean','sass','minify-css','minify-js','clean-unused-file'], function() {
+    gulp.watch('./frontend/sass/*.sass', ['clean','sass','minify-css']);
+    gulp.watch('./frontend/js/*.js', ['clean','minify-js']);
+});

@@ -2,7 +2,7 @@ var Shorten = function() {
     var shortenMode = true;
 
     var validateUrl = function() {
-        var reg = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        var reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g;
         $('#txtUrl').on('input', function() {
             if (reg.test($(this).val())) {
                 $('#submit-btn').prop('disabled', false);
