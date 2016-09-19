@@ -37,7 +37,7 @@ gulp.task('minify-css', ['clean','sass'], function() {
 });
 
 // Minify JS
-gulp.task('minify-js', ['clean'], function() {
+gulp.task('minify-js', ['clean','clean-js'], function() {
     return gulp.src('./frontend/js/shorten.js')
         .pipe(uglify())
         .pipe(header(banner, { pkg: pkg }))
@@ -53,15 +53,25 @@ gulp.task('clean', function(){
         .pipe(clean());
 });
 
-gulp.task('clean-unused-file', ['minify-css'], function(){
+gulp.task('clean-js', function(){
+    return gulp.src(['./app/assets/js/shorten.min.js'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('clean-css', ['minify-css'], function(){
     return gulp.src(['./app/assets/css/style.css'], {read: false})
         .pipe(clean());
 });
 
-gulp.task('build', ['clean','sass','minify-css','minify-js','clean-unused-file']);
+gulp.task('clean-min-css', function(){
+    return gulp.src(['./app/assets/css/style.min.css'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('build', ['clean','sass','minify-css','minify-js','clean-css']);
 
 // Watch Task that compiles SASS and watches JS changes
-gulp.task('dev', ['clean','sass','minify-css','minify-js','clean-unused-file'], function() {
-    gulp.watch('./frontend/sass/*.sass', ['clean','sass','minify-css']);
-    gulp.watch('./frontend/js/*.js', ['clean','minify-js']);
+gulp.task('dev', ['clean','sass','minify-css','minify-js','clean-css'], function() {
+    gulp.watch('./frontend/sass/*.sass', ['clean-min-css','sass','minify-css','clean-css']);
+    gulp.watch('./frontend/js/*.js', ['clean-js','minify-js']);
 });

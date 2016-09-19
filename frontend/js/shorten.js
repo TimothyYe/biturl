@@ -2,7 +2,7 @@ var Shorten = function() {
     var shortenMode = true;
 
     var validateUrl = function() {
-        var reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g;
+        var reg = /(https?:\/\/(?:www\.|(?!www))[^\s\.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,})/;
         $('#txtUrl').on('input', function() {
             if (reg.test($(this).val())) {
                 $('#submit-btn').prop('disabled', false);
