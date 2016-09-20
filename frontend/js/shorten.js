@@ -47,11 +47,9 @@ var Shorten = function() {
             if (data.Result) {
               //Shorten success
                 $('#txtUrl').prop('value', data.Short);
-                return true;
             } else {
               //Shorten failed
                 console.log('Shorten failed!');
-              return false;
             }
         }, "json");
     }

@@ -66,7 +66,7 @@ gulp.task('clean-min-css', function(){
 gulp.task('build', ['sass','minify-css','minify-js','clean-css']);
 
 // Watch Task that compiles SASS and watches JS changes
-gulp.task('dev', ['sass','minify-css','minify-js','clean-css'], function() {
-    gulp.watch('./frontend/sass/*.sass', ['clean-min-css','sass','minify-css','clean-css']);
-    gulp.watch('./frontend/js/*.js', ['clean-js','minify-js']);
+gulp.task('dev', ['minify-css','minify-js','clean-css'], function() {
+    gulp.watch('./frontend/sass/*.sass', ['minify-css','clean-css']);
+    gulp.watch('./frontend/js/*.js', ['minify-js']);
 });
