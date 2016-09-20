@@ -41,10 +41,12 @@
 
             <div class="col-md-4 col-md-offset-4">
                 <div class="input-group input-group-lg">
-                    <input type="text" id="txtUrl" class="form-control" placeholder="Please enter URL...">
+                  <form action="/short" method="post" id="shorten-form">
+                    <input type="text" id="txtUrl" name="url" class="form-control" placeholder="Please enter URL...">
                     <span class="input-group-btn">
                       <button disabled id="submit-btn" data-clipboard-target="#txtUrl" class="btn btn-success" type="button">SHORTEN</button>
                     </span>
+                  </form>
                 </div>
                 <!-- /input-group -->
             </div>
