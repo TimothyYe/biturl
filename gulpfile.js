@@ -18,14 +18,14 @@ var banner = ['/*!\n',
     ''
 ].join('');
 
-gulp.task('sass', function () {
+gulp.task('sass', ['clean-css'], function () {
   return gulp.src('./frontend/sass/*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./app/assets/css'));
 });
 
 // Minify CSS
-gulp.task('minify-css', ['clean-css','clean-min-css','sass'], function() {
+gulp.task('minify-css', ['sass'], function() {
     return gulp.src('./app/assets/css/style.css')
         .pipe(cleanCSS({ compatibility: 'ie8' }))
         .pipe(header(banner, { pkg: pkg }))
@@ -53,7 +53,7 @@ gulp.task('clean-js', function(){
         .pipe(clean());
 });
 
-gulp.task('clean-css', ['minify-css'], function(){
+gulp.task('clean-css', function(){
     return gulp.src(['./app/assets/css/style.css'], {read: false})
         .pipe(clean());
 });
@@ -63,10 +63,16 @@ gulp.task('clean-min-css', function(){
         .pipe(clean());
 });
 
-gulp.task('build', ['sass','minify-css','minify-js','clean-css']);
+
+gulp.task('build-css', ['minify-css'], function(){
+    return gulp.src(['./app/assets/css/style.css'], {read: false})
+        .pipe(clean());
+});
+
+gulp.task('build', ['build-css','minify-js']);
 
 // Watch Task that compiles SASS and watches JS changes
-gulp.task('dev', ['minify-css','minify-js','clean-css'], function() {
-    gulp.watch('./frontend/sass/*.sass', ['minify-css','clean-css']);
+gulp.task('dev', ['build-css','minify-js'], function() {
+    gulp.watch('./frontend/sass/*.sass', ['build-css']);
     gulp.watch('./frontend/js/*.js', ['minify-js']);
 });
