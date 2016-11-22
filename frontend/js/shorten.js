@@ -15,19 +15,14 @@ var Shorten = function() {
     var handleShrink = function() {
         $('#submit-btn').on('click', function(e) {
             e.preventDefault();
-            console.log("clicked!")
 
             if(shortenMode) {
-              console.log("shrink mode");
-              shortenMode = false;
-              $('#submit-btn').text("COPY");
-              //shrink_url();
+              shrink_url();
             } else {
-              console.log("copy mode");
               var clipboard = new Clipboard('.btn');
 
               clipboard.on('success', function(e) {
-                console.log('Copied!');
+                toastr.success('URL copied to clipboard!');
                 clipboard.destroy();
                 shortenMode = true;
                 $('#submit-btn').text("SHORTEN");
@@ -44,12 +39,19 @@ var Shorten = function() {
         var form = $('#shorten-form');
         var url = form.attr("action");
         $.post(url, form.serialize(), function(data) {
-            if (data.Result) {
+            if (data.result) {
               //Shorten success
-                $('#txtUrl').prop('value', data.Short);
+                toastr.success('URL is shortened!');
+                $('#txtUrl').prop('value', data.short);
+                shortenMode = false;
+                $('#submit-btn').text("COPY");
+                $('#txtUrl').focus();
+                $('#txtUrl').select();
             } else {
               //Shorten failed
                 console.log('Shorten failed!');
+                toastr.warning(data.message);
+                return false;
             }
         }, "json");
     }
@@ -61,5 +63,4 @@ var Shorten = function() {
             handleShrink();
         }
     };
-
 }();

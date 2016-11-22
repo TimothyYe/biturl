@@ -2,15 +2,18 @@ package controllers
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/kataras/iris"
 	"gopkg.in/redis.v4"
 )
 
+//IndexController for URL shorten handling
 type IndexController struct {
 	redis *redis.Client
 }
 
+//Response struct for http response
 type Response struct {
 	Result  bool   `json:"result"`
 	Short   string `json:"short"`
@@ -28,6 +31,7 @@ func init() {
 	fmt.Println(pong, err)
 }
 
+//IndexHandler for rendering the index page
 func (c *IndexController) IndexHandler(ctx *iris.Context) {
 	if err := ctx.Render("index.html", nil); err != nil {
 		fmt.Println(err.Error())
@@ -35,14 +39,17 @@ func (c *IndexController) IndexHandler(ctx *iris.Context) {
 	}
 }
 
+//GetShortHandler for getting shorten URL querying result
 func (c *IndexController) GetShortHandler(ctx *iris.Context) {
 }
 
+//ShortURLHandler for shorten long URL
 func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 	url := ctx.FormValue("url")
 	resp := new(Response)
+	inputURL := string(url)
 
-	if string(url) == "" {
+	if inputURL == "" {
 		resp.Result = false
 		resp.Message = "Please input URL first..."
 
@@ -50,5 +57,16 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 		return
 	}
 
+	if strings.Contains(inputURL, "biturl.top") {
+		resp.Result = false
+		resp.Message = "Cannot shorten it again..."
+
+		ctx.JSON(iris.StatusOK, resp)
+		return
+	}
+
 	fmt.Println("Input URL is:" + string(url))
+	resp.Result = true
+	resp.Short = "http://biturl.top/A4zhC32"
+	ctx.JSON(iris.StatusOK, resp)
 }
