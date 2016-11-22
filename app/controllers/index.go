@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/kataras/iris"
-	"gopkg.in/redis.v4"
+	"gopkg.in/redis.v5"
 )
 
 //IndexController for URL shorten handling
