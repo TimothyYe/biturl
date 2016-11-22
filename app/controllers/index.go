@@ -5,12 +5,14 @@ import (
 	"strings"
 
 	"github.com/kataras/iris"
+	"github.com/timothyye/biturl/utils"
 	"gopkg.in/redis.v5"
 )
 
+var client *redis.Client
+
 //IndexController for URL shorten handling
 type IndexController struct {
-	redis *redis.Client
 }
 
 //Response struct for http response
@@ -21,14 +23,11 @@ type Response struct {
 }
 
 func init() {
-	client := redis.NewClient(&redis.Options{
+	client = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
-
-	pong, err := client.Ping().Result()
-	fmt.Println(pong, err)
 }
 
 //IndexHandler for rendering the index page
@@ -41,6 +40,8 @@ func (c *IndexController) IndexHandler(ctx *iris.Context) {
 
 //GetShortHandler for getting shorten URL querying result
 func (c *IndexController) GetShortHandler(ctx *iris.Context) {
+	url := ctx.Param("url")
+	fmt.Println("original url is:", client.Get(url).Val())
 }
 
 //ShortURLHandler for shorten long URL
@@ -65,8 +66,16 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 		return
 	}
 
+	urls := utils.ShortenURL(inputURL)
+	err := client.Set(urls[0], inputURL, 0).Err()
+	if err != nil {
+		resp.Result = false
+		resp.Message = "Backend service is unavailable!"
+	}
+
 	fmt.Println("Input URL is:" + string(url))
 	resp.Result = true
-	resp.Short = "http://biturl.top/A4zhC32"
+	resp.Short = "http://localhost:7000/" + urls[0]
+
 	ctx.JSON(iris.StatusOK, resp)
 }

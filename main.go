@@ -48,9 +48,9 @@ func initialize(web *iris.Framework) {
 
 	//Init controller
 	indexController := &controllers.IndexController{}
+	web.Static("/assets", "./app/assets", 1)
 
 	web.Get("/", indexController.IndexHandler)
-	web.Get("/short/:url", indexController.GetShortHandler)
+	web.Get("/:url", indexController.GetShortHandler)
 	web.Post("/short", indexController.ShortURLHandler)
-	web.Static("/assets", "./app/assets", 1)
 }
