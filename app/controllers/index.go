@@ -75,7 +75,7 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 	}
 
 	resp.Result = true
-	resp.Short = "http://localhost:7000/" + urls[0]
+	resp.Short = "http://biturl.top/" + urls[0]
 
 	ctx.JSON(iris.StatusOK, resp)
 }
