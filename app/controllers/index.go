@@ -41,7 +41,8 @@ func (c *IndexController) IndexHandler(ctx *iris.Context) {
 //GetShortHandler for getting shorten URL querying result
 func (c *IndexController) GetShortHandler(ctx *iris.Context) {
 	url := ctx.Param("url")
-	fmt.Println("original url is:", client.Get(url).Val())
+	//fmt.Println("original url is:", client.Get(url).Val())
+	ctx.Redirect(client.Get(url).Val())
 }
 
 //ShortURLHandler for shorten long URL
@@ -73,7 +74,6 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 		resp.Message = "Backend service is unavailable!"
 	}
 
-	fmt.Println("Input URL is:" + string(url))
 	resp.Result = true
 	resp.Short = "http://localhost:7000/" + urls[0]
 
