@@ -29,3 +29,4 @@ main
 main.exe
 
 node_modules
+.DS_Store
