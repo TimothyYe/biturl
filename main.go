@@ -24,7 +24,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = "7000"
+		port = "8000"
 	}
 
 	fmt.Println("Service is listening at:" + port)
