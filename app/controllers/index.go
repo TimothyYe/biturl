@@ -42,7 +42,21 @@ func (c *IndexController) IndexHandler(ctx *iris.Context) {
 func (c *IndexController) GetShortHandler(ctx *iris.Context) {
 	url := ctx.Param("url")
 	//fmt.Println("original url is:", client.Get(url).Val())
-	ctx.Redirect(client.Get(url).Val())
+	longURL := client.Get(url).Val()
+
+	fmt.Println("Long URL is:", longURL)
+
+	if len(longURL) > 0 {
+		if strings.HasPrefix(longURL, "http://") || strings.HasPrefix(longURL, "https://") {
+			ctx.Redirect(longURL)
+			return
+		}
+
+		ctx.Redirect("http://" + longURL)
+		return
+	}
+
+	ctx.Redirect("/")
 }
 
 //ShortURLHandler for shorten long URL
@@ -50,6 +64,10 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 	url := ctx.FormValue("url")
 	resp := new(Response)
 	inputURL := string(url)
+
+	if !strings.HasPrefix(inputURL, "http") {
+		inputURL = "http://" + inputURL
+	}
 
 	if inputURL == "" {
 		resp.Result = false
