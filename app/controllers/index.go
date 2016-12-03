@@ -41,10 +41,7 @@ func (c *IndexController) IndexHandler(ctx *iris.Context) {
 //GetShortHandler for getting shorten URL querying result
 func (c *IndexController) GetShortHandler(ctx *iris.Context) {
 	url := ctx.Param("url")
-	//fmt.Println("original url is:", client.Get(url).Val())
 	longURL := client.Get(url).Val()
-
-	fmt.Println("Long URL is:", longURL)
 
 	if len(longURL) > 0 {
 		if strings.HasPrefix(longURL, "http://") || strings.HasPrefix(longURL, "https://") {
