@@ -48,8 +48,10 @@ func initialize(web *iris.Framework) {
 
 	//Init controller
 	indexController := &controllers.IndexController{}
+	infoController := &controllers.InfoController{}
 
 	web.Get("/", indexController.IndexHandler)
 	web.Get("/:url", indexController.GetShortHandler)
+	web.Get("/:url/info", infoController.GetURLInfoHandler)
 	web.Post("/short", indexController.ShortURLHandler)
 }
