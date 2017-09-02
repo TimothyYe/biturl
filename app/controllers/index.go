@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/kataras/iris"
@@ -13,6 +12,9 @@ var client *redis.Client
 
 //IndexController for URL shorten handling
 type IndexController struct {
+	// iris.Controller
+	// MVC architectural pattern is built'n inside Iris now but
+	// I'll not change your design here, it will be kept it as handler-driven.
 }
 
 //Response struct for http response
@@ -31,16 +33,13 @@ func init() {
 }
 
 //IndexHandler for rendering the index page
-func (c *IndexController) IndexHandler(ctx *iris.Context) {
-	if err := ctx.Render("index.html", nil); err != nil {
-		fmt.Println(err.Error())
-		panic(err)
-	}
+func (c *IndexController) IndexHandler(ctx iris.Context) {
+	ctx.View("index.html")
 }
 
 //GetShortHandler for getting shorten URL querying result
-func (c *IndexController) GetShortHandler(ctx *iris.Context) {
-	url := ctx.Param("url")
+func (c *IndexController) GetShortHandler(ctx iris.Context) {
+	url := ctx.Params().Get("url")
 	longURL := client.Get(url).Val()
 
 	if len(longURL) > 0 {
@@ -57,7 +56,7 @@ func (c *IndexController) GetShortHandler(ctx *iris.Context) {
 }
 
 //ShortURLHandler for shorten long URL
-func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
+func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 	url := ctx.FormValue("url")
 	resp := new(Response)
 	inputURL := string(url)
@@ -70,7 +69,7 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 		resp.Result = false
 		resp.Message = "Please input URL first..."
 
-		ctx.JSON(iris.StatusOK, resp)
+		ctx.JSON(resp)
 		return
 	}
 
@@ -78,7 +77,7 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 		resp.Result = false
 		resp.Message = "Cannot shorten it again..."
 
-		ctx.JSON(iris.StatusOK, resp)
+		ctx.JSON(resp)
 		return
 	}
 
@@ -92,5 +91,5 @@ func (c *IndexController) ShortURLHandler(ctx *iris.Context) {
 	resp.Result = true
 	resp.Short = "http://biturl.top/" + urls[0]
 
-	ctx.JSON(iris.StatusOK, resp)
+	ctx.JSON(resp)
 }
