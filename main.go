@@ -5,17 +5,15 @@ import (
 	"os"
 	"time"
 
-	"github.com/iris-contrib/graceful"
 	"github.com/iris-contrib/middleware/cors"
-	"github.com/iris-contrib/middleware/logger"
-	"github.com/iris-contrib/middleware/recovery"
-	"github.com/kataras/go-template/html"
 	"github.com/kataras/iris"
+
 	"github.com/timothyye/biturl/app/controllers"
 )
 
 func main() {
-	web := iris.New()
+	// logger and recovery middlewares are being registered inside the .Default.
+	app := iris.Default()
 
 	//Init all the settings
 	initialize(web)
@@ -27,31 +25,26 @@ func main() {
 		port = "8000"
 	}
 
-	fmt.Println("Service is listening at:" + port)
-	graceful.Run(":"+port, time.Duration(10)*time.Second, web)
+	app.Run(iris.Addr(":" + port)) // gracefuly shutdown is enabled by-default now.
 }
 
-func initialize(web *iris.Framework) {
-	web.Use(logger.New())
-	web.Use(recovery.Handler)
+func initialize(app *iris.Application) {
+	app.RegisterView(iris.HTML("./app/views", ".html"))
 
-	c := cors.New(cors.Options{
+	app.WrapRouter(cors.WrapNext(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
 		AllowedHeaders:   []string{"Content-Type", "ACCEPT", "ORIGIN"},
 		AllowCredentials: true,
 		Debug:            true,
-	})
-
-	web.Use(c)
-	web.UseTemplate(html.New()).Directory("./app/views", ".html")
+	}))
 
 	//Init controller
 	indexController := &controllers.IndexController{}
 	infoController := &controllers.InfoController{}
 
-	web.Get("/", indexController.IndexHandler)
-	web.Get("/:url", indexController.GetShortHandler)
-	web.Get("/:url/info", infoController.GetURLInfoHandler)
-	web.Post("/short", indexController.ShortURLHandler)
+	app.Get("/", indexController.IndexHandler)
+	app.Get("/{url:string}", indexController.GetShortHandler)
+	app.Get("/{url:string}/info", infoController.GetURLInfoHandler)
+	app.Post("/short", indexController.ShortURLHandler)
 }
