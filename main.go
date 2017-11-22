@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"time"
 
 	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
@@ -16,7 +14,7 @@ func main() {
 	app := iris.Default()
 
 	//Init all the settings
-	initialize(web)
+	initialize(app)
 
 	//Get port from environment variables, default port number is 7000
 	port := os.Getenv("PORT")
