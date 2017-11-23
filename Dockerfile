@@ -1,4 +1,4 @@
-FROM registry.xiaozhou.net/base:latest
+FROM r.xiaozhou.net/alpine/base:latest
 MAINTAINER Timothy Ye <yexiaozhou2003@gmail.com>
 WORKDIR /
 
