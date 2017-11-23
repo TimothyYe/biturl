@@ -48,7 +48,7 @@ func (c *IndexController) GetShortHandler(ctx iris.Context) {
 			return
 		}
 
-		ctx.Redirect("http://" + longURL)
+		ctx.Redirect("https://" + longURL)
 		return
 	}
 
@@ -62,7 +62,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 	inputURL := string(url)
 
 	if !strings.HasPrefix(inputURL, "http") {
-		inputURL = "http://" + inputURL
+		inputURL = "https://" + inputURL
 	}
 
 	if inputURL == "" {
@@ -89,7 +89,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 	}
 
 	resp.Result = true
-	resp.Short = "http://biturl.top/" + urls[0]
+	resp.Short = "https://biturl.top/" + urls[0]
 
 	ctx.JSON(resp)
 }
