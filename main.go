@@ -3,7 +3,6 @@ package main
 import (
 	"os"
 
-	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris"
 
 	"github.com/timothyye/biturl/app/controllers"
@@ -28,14 +27,6 @@ func main() {
 
 func initialize(app *iris.Application) {
 	app.RegisterView(iris.HTML("./app/views", ".html"))
-
-	app.WrapRouter(cors.WrapNext(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "OPTIONS"},
-		AllowedHeaders:   []string{"Content-Type", "ACCEPT", "ORIGIN"},
-		AllowCredentials: true,
-		Debug:            true,
-	}))
 
 	//Init controller
 	indexController := &controllers.IndexController{}
