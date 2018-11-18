@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-		<link rel="icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">  
-		<link rel="shortcut icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">  
+    <link rel="icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">
 
     <title>BitURL - Free URL shortener service</title>
 
@@ -45,14 +45,15 @@
             <br>
 
             <div class="col-md-8 col-md-offset-2">
-                  <form class="form-inline" action="/short" method="post" id="shorten-form" role="form">
+                <form class="form-inline" action="/short" method="post" id="shorten-form" role="form">
                     <div class="form-group">
-                      <input type="text" id="txtUrl" name="url" class="form-control col-md-10" placeholder="Please enter URL...">
-                      <div class="col-md-2">
-                        <button disabled id="submit-btn" data-clipboard-target="#txtUrl" class="btn btn-success" type="button">SHORTEN</button>
-                      </div>
+                        <input type="text" id="txtUrl" name="url" class="form-control col-md-10" placeholder="Please enter URL...">
+                        <div class="col-md-2">
+                            <button disabled id="submit-btn" data-clipboard-target="#txtUrl" class="btn btn-success"
+                                type="button">SHORTEN</button>
+                        </div>
                     </div>
-                  </form>
+                </form>
             </div>
         </div>
     </header>
@@ -62,10 +63,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h4><strong>BitURL</strong>
-                    </h4>
+                    <h3><strong>BitURL</strong>
+                    </h3>
                     <hr class="small">
-                    <p class="text-dark">Copyright &copy; BitURL.top 2018</p>
+                    <p class="copyright">Copyright &copy; BitURL.top 2018</p>
                 </div>
             </div>
         </div>
@@ -86,19 +87,19 @@
     <!-- Toastr script-->
     <script src="https://assets.biturl.top/js/toastr.min.js"></script>
 
-		<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?140366bc35e024b954612e510f817ad2";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?140366bc35e024b954612e510f817ad2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 
     <!-- Custom Theme JavaScript -->
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             Shorten.init();
         });
     </script>
