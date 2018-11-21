@@ -1,7 +1,7 @@
 # BitURL
 URL shortener and link management platform, powered by Go. [http://biturl.top](http://biturl.top)
 
-## Technology BitURL used
+## Technology used in BitURL
 
 >* Redis
 >* [Iris](https://github.com/kataras/iris)
