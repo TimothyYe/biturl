@@ -8,7 +8,7 @@ URL shortener and link management platform, powered by Go. [http://biturl.top](h
 
 ## Snapshot
 
-![https://github.com/TimothyYe/biturl/blob/master/screenshots/1.png?raw=true](https://github.com/TimothyYe/biturl/blob/master/screenshots/1.png?raw=true)
+![https://github.com/TimothyYe/biturl/blob/master/screenshots/1.jpg?raw=true](https://github.com/TimothyYe/biturl/blob/master/screenshots/1.jpg?raw=true)
 
 ## License
 
