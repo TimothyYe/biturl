@@ -10,6 +10,11 @@ import (
 
 var client *redis.Client
 
+const (
+	domain = "biturl.top"
+	url    = "https://biturl.top/"
+)
+
 //IndexController for URL shorten handling
 type IndexController struct {
 	// iris.Controller
@@ -73,7 +78,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 		return
 	}
 
-	if strings.Contains(inputURL, "biturl.top") {
+	if strings.Contains(inputURL, domain) {
 		resp.Result = false
 		resp.Message = "Cannot shorten it again..."
 
@@ -89,7 +94,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 	}
 
 	resp.Result = true
-	resp.Short = "https://biturl.top/" + urls[0]
+	resp.Short = url + urls[0]
 
 	ctx.JSON(resp)
 }
