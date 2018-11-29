@@ -1,14 +1,17 @@
 package controllers
 
-import "github.com/kataras/iris"
+import (
+	"net/http"
+
+	"github.com/gin-gonic/gin"
+)
 
 //InfoController for URL shorten handling
 type InfoController struct {
 }
 
 //GetURLInfoHandler for rendering the index page
-func (c *InfoController) GetURLInfoHandler(ctx iris.Context) {
-	url := ctx.Params().Get("url")
-	ctx.Application().Logger().Infof("Info for URL: %s", url)
-	ctx.Redirect("/")
+func (c *InfoController) GetURLInfoHandler(ctx *gin.Context) {
+	//url := ctx.Param("url")
+	ctx.Redirect(http.StatusTemporaryRedirect, "/")
 }

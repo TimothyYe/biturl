@@ -3,14 +3,14 @@ package main
 import (
 	"os"
 
-	"github.com/kataras/iris"
+	"github.com/gin-gonic/gin"
 
-	"github.com/timothyye/biturl/app/controllers"
+	"github.com/TimothyYe/biturl/app/controllers"
 )
 
 func main() {
 	// logger and recovery middlewares are being registered inside the .Default.
-	app := iris.Default()
+	app := gin.Default()
 
 	//Init all the settings
 	initialize(app)
@@ -22,18 +22,18 @@ func main() {
 		port = "8000"
 	}
 
-	app.Run(iris.Addr(":" + port)) // gracefuly shutdown is enabled by-default now.
+	app.Run(":" + port) // gracefuly shutdown is enabled by-default now.
 }
 
-func initialize(app *iris.Application) {
-	app.RegisterView(iris.HTML("./app/views", ".html"))
+func initialize(app *gin.Engine) {
+	app.LoadHTMLGlob("./app/views/*")
 
 	//Init controller
 	indexController := &controllers.IndexController{}
 	infoController := &controllers.InfoController{}
 
-	app.Get("/", indexController.IndexHandler)
-	app.Get("/{url:string}", indexController.GetShortHandler)
-	app.Get("/{url:string}/info", infoController.GetURLInfoHandler)
-	app.Post("/short", indexController.ShortURLHandler)
+	app.GET("/", indexController.IndexHandler)
+	app.GET("/:url", indexController.GetShortHandler)
+	app.GET("/:url/info", infoController.GetURLInfoHandler)
+	app.POST("/short", indexController.ShortURLHandler)
 }

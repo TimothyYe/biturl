@@ -26,16 +26,12 @@
 
 
 [[constraint]]
-  name = "github.com/kataras/iris"
-  version = "11.1.0"
+  name = "github.com/gin-gonic/gin"
+  version = "1.3.0"
 
 [[constraint]]
   name = "github.com/smartystreets/goconvey"
   version = "1.6.3"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/timothyye/biturl"
 
 [[constraint]]
   name = "gopkg.in/redis.v5"

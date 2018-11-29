@@ -1,25 +1,24 @@
 package controllers
 
 import (
+	"net/http"
 	"strings"
 
-	"github.com/kataras/iris"
-	"github.com/timothyye/biturl/utils"
+	"github.com/TimothyYe/biturl/utils"
+	"github.com/gin-gonic/gin"
 	"gopkg.in/redis.v5"
 )
 
 var client *redis.Client
 
 const (
-	domain = "biturl.top"
-	url    = "https://biturl.top/"
+	domain   = "biturl.top"
+	url      = "https://biturl.top/"
+	visitKey = `visit/%s`
 )
 
 //IndexController for URL shorten handling
 type IndexController struct {
-	// iris.Controller
-	// MVC architectural pattern is built'n inside Iris now but
-	// I'll not change your design here, it will be kept it as handler-driven.
 }
 
 //Response struct for http response
@@ -38,31 +37,31 @@ func init() {
 }
 
 //IndexHandler for rendering the index page
-func (c *IndexController) IndexHandler(ctx iris.Context) {
-	ctx.View("index.html")
+func (c *IndexController) IndexHandler(ctx *gin.Context) {
+	ctx.HTML(http.StatusOK, "index.html", nil)
 }
 
 //GetShortHandler for getting shorten URL querying result
-func (c *IndexController) GetShortHandler(ctx iris.Context) {
-	url := ctx.Params().Get("url")
+func (c *IndexController) GetShortHandler(ctx *gin.Context) {
+	url := ctx.Param("url")
 	longURL := client.Get(url).Val()
 
 	if len(longURL) > 0 {
 		if strings.HasPrefix(longURL, "http://") || strings.HasPrefix(longURL, "https://") {
-			ctx.Redirect(longURL)
+			ctx.Redirect(http.StatusTemporaryRedirect, longURL)
 			return
 		}
 
-		ctx.Redirect("https://" + longURL)
+		ctx.Redirect(http.StatusTemporaryRedirect, "https://"+longURL)
 		return
 	}
 
-	ctx.Redirect("/")
+	ctx.Redirect(http.StatusTemporaryRedirect, "/")
 }
 
 //ShortURLHandler for shorten long URL
-func (c *IndexController) ShortURLHandler(ctx iris.Context) {
-	url := ctx.FormValue("url")
+func (c *IndexController) ShortURLHandler(ctx *gin.Context) {
+	url := ctx.PostForm("url")
 	resp := new(Response)
 	inputURL := string(url)
 
@@ -74,7 +73,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 		resp.Result = false
 		resp.Message = "Please input URL first..."
 
-		ctx.JSON(resp)
+		ctx.JSON(http.StatusOK, resp)
 		return
 	}
 
@@ -82,7 +81,7 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 		resp.Result = false
 		resp.Message = "Cannot shorten it again..."
 
-		ctx.JSON(resp)
+		ctx.JSON(http.StatusOK, resp)
 		return
 	}
 
@@ -96,5 +95,5 @@ func (c *IndexController) ShortURLHandler(ctx iris.Context) {
 	resp.Result = true
 	resp.Short = url + urls[0]
 
-	ctx.JSON(resp)
+	ctx.JSON(http.StatusOK, resp)
 }

@@ -4,7 +4,7 @@ URL shortener and link management platform, powered by Go. [http://biturl.top](h
 ## Technology used in BitURL
 
 >* Redis
->* [Iris](https://github.com/kataras/iris)
+>* [Gin](https://github.com/gin-gonic/gin)
 
 ## Snapshot
 
