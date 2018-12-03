@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -12,9 +13,11 @@ import (
 var client *redis.Client
 
 const (
-	domain   = "biturl.top"
-	url      = "https://biturl.top/"
-	visitKey = `visit/%s`
+	httpPrefix  = "http://"
+	httpsPrefix = "https://"
+	domain      = "biturl.top"
+	url         = "https://biturl.top/"
+	visitKey    = `visit/%s`
 )
 
 //IndexController for URL shorten handling
@@ -47,15 +50,19 @@ func (c *IndexController) GetShortHandler(ctx *gin.Context) {
 	longURL := client.Get(url).Val()
 
 	if len(longURL) > 0 {
-		if strings.HasPrefix(longURL, "http://") || strings.HasPrefix(longURL, "https://") {
+		if strings.HasPrefix(longURL, httpPrefix) || strings.HasPrefix(longURL, httpsPrefix) {
 			ctx.Redirect(http.StatusTemporaryRedirect, longURL)
 			return
 		}
 
-		ctx.Redirect(http.StatusTemporaryRedirect, "https://"+longURL)
+		ctx.Redirect(http.StatusTemporaryRedirect, httpsPrefix+longURL)
 		return
 	}
 
+	// update visit count
+	client.Incr(fmt.Sprintf(visitKey, url))
+
+	// redirect user to the target URL
 	ctx.Redirect(http.StatusTemporaryRedirect, "/")
 }
 
@@ -66,7 +73,7 @@ func (c *IndexController) ShortURLHandler(ctx *gin.Context) {
 	inputURL := string(url)
 
 	if !strings.HasPrefix(inputURL, "http") {
-		inputURL = "https://" + inputURL
+		inputURL = httpsPrefix + inputURL
 	}
 
 	if inputURL == "" {
@@ -86,7 +93,16 @@ func (c *IndexController) ShortURLHandler(ctx *gin.Context) {
 	}
 
 	urls := utils.ShortenURL(inputURL)
+
+	// save short URL in redis
 	err := client.Set(urls[0], inputURL, 0).Err()
+	if err != nil {
+		resp.Result = false
+		resp.Message = "Backend service is unavailable!"
+	}
+
+	// set default visit info
+	err = client.Set(fmt.Sprintf(visitKey, urls[0]), 0, 0).Err()
 	if err != nil {
 		resp.Result = false
 		resp.Message = "Backend service is unavailable!"
