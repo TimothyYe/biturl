@@ -16,7 +16,7 @@ const (
 	httpPrefix  = "http://"
 	httpsPrefix = "https://"
 	domain      = "biturl.top"
-	url         = "https://biturl.top/"
+	siteURL     = "https://biturl.top/"
 	visitKey    = `visit/%s`
 )
 
@@ -109,7 +109,7 @@ func (c *IndexController) ShortURLHandler(ctx *gin.Context) {
 	}
 
 	resp.Result = true
-	resp.Short = url + urls[0]
+	resp.Short = siteURL + urls[0]
 
 	ctx.JSON(http.StatusOK, resp)
 }
