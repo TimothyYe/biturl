@@ -47,6 +47,7 @@ func (c *IndexController) IndexHandler(ctx *gin.Context) {
 //GetShortHandler for getting shorten URL querying result
 func (c *IndexController) GetShortHandler(ctx *gin.Context) {
 	url := ctx.Param("url")
+	url = utils.FormatURL(&url)
 	longURL := client.Get(url).Val()
 
 	if len(longURL) > 0 {
@@ -71,6 +72,7 @@ func (c *IndexController) ShortURLHandler(ctx *gin.Context) {
 	url := ctx.PostForm("url")
 	resp := new(Response)
 	inputURL := string(url)
+	url = utils.FormatURL(&url)
 
 	if !strings.HasPrefix(inputURL, "http") {
 		inputURL = httpsPrefix + inputURL

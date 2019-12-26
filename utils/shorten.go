@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/md5"
 	"encoding/binary"
+	"strings"
 )
 
 // 62 characters table.
@@ -14,6 +15,14 @@ var charTable = [...]rune{
 	'7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 	'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
 	'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+}
+
+// format URL
+func FormatURL(url *string) string {
+	fn := func(c rune) bool {
+		return strings.HasSuffix(string(c), "/")
+	}
+	return strings.TrimRightFunc(*url, fn)
 }
 
 // ShortenURL, func to short the input URL
