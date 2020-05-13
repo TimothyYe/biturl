@@ -1,14 +1,15 @@
-.logo {
-  color: #ffffff;
-  height: 31px;
-  background: transparent;
-  font-size: large;
-  margin-right: 30px;
-  float: left;
-}
-
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.header ul {
+  font-size: 18px;
+  list-style-type: none;
+}
+
+.header ul li {
+  display: inline;
+  margin: 10px;
 }
 
 .footer {
@@ -16,8 +17,7 @@ body {
 }
 
 h1 {
-  margin: 0;
-  padding: 0;
+  margin: 0px;
   font-size: 4.5em;
   font-weight: 700;
   color: #ffffff;

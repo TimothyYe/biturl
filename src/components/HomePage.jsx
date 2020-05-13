@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 import "../style.css";
+import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 
 const { Search } = Input;
@@ -8,6 +9,7 @@ const { Search } = Input;
 function HomePage() {
   return (
     <>
+      <Header />
       <div
         style={{
           position: "absolute",

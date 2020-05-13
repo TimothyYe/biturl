@@ -3,7 +3,7 @@ import React from "react";
 function Footer() {
   return (
     <div
-      class="footer"
+      className="footer"
       style={{
         position: "absolute",
         bottom: "10%",
@@ -16,8 +16,8 @@ function Footer() {
       <h3>
         <strong>BitURL</strong>
       </h3>
-      <hr class="small" />
-      <p class="copyright">Copyright &copy; BitURL.top 2020</p>
+      <hr />
+      <p>Copyright &copy; BitURL.top 2020</p>
     </div>
   );
 }
