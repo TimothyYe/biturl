@@ -11,6 +11,10 @@ body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.footer {
+  text-align: center;
+}
+
 h1 {
   margin: 0;
   padding: 0;
