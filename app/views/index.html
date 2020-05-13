@@ -1,76 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="https://assets.biturl.top/img/favicon.ico" type="image/x-icon">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      rel="icon"
+      href="https://assets.biturl.top/img/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://assets.biturl.top/img/favicon.ico"
+      type="image/x-icon"
+    />
 
     <title>BitURL - Free URL shortener service</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="https://assets.biturl.top/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://assets.biturl.top/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Custom CSS -->
-    <link href="https://assets.biturl.top/css/style.min.css" rel="stylesheet">
+    <link href="https://assets.biturl.top/css/style.min.css" rel="stylesheet" />
 
     <!-- Toastr -->
-    <link href="https://assets.biturl.top/css/toastr.min.css" rel="stylesheet">
+    <link
+      href="https://assets.biturl.top/css/toastr.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Custom Fonts -->
-    <link href="https://assets.biturl.top/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link
+      href="https://assets.biturl.top/font-awesome/css/font-awesome.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
     <!-- <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.assets/js/1.4.2/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.assets/js/1.4.2/respond.min.js"></script>
     <![endif]-->
+  </head>
 
-</head>
-
-<body>
-    <iframe style="position:absolute;top:30px;right:40px;z-index:10;" src="https://ghbtns.com/github-btn.html?user=TimothyYe&repo=biturl&type=star&count=true"
-        frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+  <body>
+    <iframe
+      style="position: absolute; top: 30px; right: 40px; z-index: 10;"
+      src="https://ghbtns.com/github-btn.html?user=TimothyYe&repo=biturl&type=star&count=true"
+      frameborder="0"
+      scrolling="0"
+      width="160px"
+      height="30px"
+    ></iframe>
     <!-- Header -->
     <header id="top" class="header">
-        <div class="text-vertical-center">
-            <h1>BitURL</h1>
-            <h3>Make your links manageable.</h3>
-            <br>
+      <div class="text-vertical-center">
+        <h1>BitURL</h1>
+        <h3>Make your links manageable.</h3>
+        <br />
 
-            <div class="col-md-8 col-md-offset-2">
-                <form class="form-inline" action="/short" method="post" id="shorten-form" role="form">
-                    <div class="form-group">
-                        <input type="text" id="txtUrl" name="url" class="form-control col-md-10" placeholder="Please enter URL...">
-                        <div class="col-md-2">
-                            <button disabled id="submit-btn" data-clipboard-target="#txtUrl" class="btn btn-success"
-                                type="button">SHORTEN</button>
-                        </div>
-                    </div>
-                </form>
+        <div class="col-md-8 col-md-offset-2">
+          <form
+            class="form-inline"
+            action="/short"
+            method="post"
+            id="shorten-form"
+            role="form"
+          >
+            <div class="form-group">
+              <input
+                type="text"
+                id="txtUrl"
+                name="url"
+                class="form-control col-md-10"
+                placeholder="Please enter URL..."
+              />
+              <div class="col-md-2">
+                <button
+                  disabled
+                  id="submit-btn"
+                  data-clipboard-target="#txtUrl"
+                  class="btn btn-success"
+                  type="button"
+                >
+                  SHORTEN
+                </button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </header>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h3><strong>BitURL</strong>
-                    </h3>
-                    <hr class="small">
-                    <p class="copyright">Copyright &copy; BitURL.top 2019</p>
-                </div>
-            </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 col-lg-offset-1 text-center">
+            <h3><strong>BitURL</strong></h3>
+            <hr class="small" />
+            <p class="copyright">Copyright &copy; BitURL.top 2019</p>
+          </div>
         </div>
+      </div>
     </footer>
 
     <!-- jQuery -->
@@ -89,22 +128,20 @@
     <script src="https://assets.biturl.top/js/toastr.min.js"></script>
 
     <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?140366bc35e024b954612e510f817ad2";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?140366bc35e024b954612e510f817ad2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
     </script>
 
     <!-- Custom Theme JavaScript -->
     <script>
-        $(document).ready(function () {
-            Shorten.init();
-        });
+      $(document).ready(function () {
+        Shorten.init();
+      });
     </script>
-
-</body>
-
+  </body>
 </html>
