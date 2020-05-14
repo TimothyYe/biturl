@@ -16,6 +16,22 @@ body {
   text-align: center;
 }
 
+.input-group {
+  display: table;
+  vertical-align: middle;
+}
+
+.input-box {
+  width: 100%;
+}
+
+.input-group button {
+  margin-left: 5px;
+}
+.input-box {
+  display: table-cell;
+}
+
 h1 {
   margin: 0px;
   font-size: 4.5em;
